@@ -31,12 +31,12 @@ function writeDisplay(content) {
   display.textContent = content;
 }
 
-const buttons = document.querySelectorAll('button');
+const digits = document.querySelectorAll('.digit');
 let displayContent = "";
 
-buttons.forEach(button => {
-  button.addEventListener('click', () =>  {
-    displayContent += button.id;
+digits.forEach(digit => {
+  digit.addEventListener('click', () =>  {
+    displayContent += digit.id;
     writeDisplay(displayContent);
   })
 })
