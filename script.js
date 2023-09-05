@@ -74,10 +74,10 @@ digits.forEach(digit => {
   digit.addEventListener('click', () =>  {
     if (newNumber) {
       newNumber = false;
-      displayContent = digit.id;
+      displayContent = digit.id[5];
       writeDisplay(displayContent);
     } else {
-      addDisplayContent(digit.id)
+      addDisplayContent(digit.id[5])
     }
   })
 })

@@ -3,40 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Calculator</title>
   <script src="./script.js" defer></script>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <div class="calculator">
-    <div class="display">0</div>
-    <div class="numpad">
-      <div id="row-1">
-        <button class="digit" id="7">7</button>
-        <button class="digit" id="8">8</button>
-        <button class="digit" id="9">9</button>
+  <div class="container">
+    <div class="calculator">
+      <div class="display">0</div>
+      <div class="keypad">
+        <div class="numpad">
+          <div class="row" id="row-1">
+            <button class="digit" id="digit7">7</button>
+            <button class="digit" id="digit8">8</button>
+            <button class="digit" id="digit9">9</button>
+          </div>
+          <div class="row" id="row-2">
+            <button class="digit" id="digit4">4</button>
+            <button class="digit" id="digit5">5</button>
+            <button class="digit" id="digit6">6</button>
+          </div>
+          <div class="row" id="row-3">
+            <button class="digit" id="digit1">1</button>
+            <button class="digit" id="digit2">2</button>
+            <button class="digit" id="digit3">3</button>
+          </div>
+          <div class="row" id="row-4">
+            <button class="digit" id="digit0">0</button>
+            <button id=".">.</button>
+          </div>
+          <div class="row" id="row-5">
+            <button id="clear">clear</button>
+            <button id="=">=</button>
+          </div>
+        </div>
+        <div class="operators">
+          <button class="operator" id="/">/</button>
+          <button class="operator" id="*">*</button>
+          <button class="operator" id="-">-</button>
+          <button class="operator" id="+">+</button>
+        </div>
       </div>
-      <div id="row-2">
-        <button class="digit" id="4">4</button>
-        <button class="digit" id="5">5</button>
-        <button class="digit" id="6">6</button>
-      </div>
-      <div id="row-3">
-        <button class="digit" id="1">1</button>
-        <button class="digit" id="2">2</button>
-        <button class="digit" id="3">3</button>
-      </div>
-      <div id="row-4">
-        <button class="digit" id="0">0</button>
-        <button id="=">=</button>
-        <button id=".">.</button>
-        <button id="clear">clear</button>
-      </div>
-    </div>
-    <div class="operators">
-      <button class="operator" id="/">/</button>
-      <button class="operator" id="*">*</button>
-      <button class="operator" id="-">-</button>
-      <button class="operator" id="+">+</button>
     </div>
   </div>
 </body>
