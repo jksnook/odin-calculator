@@ -31,6 +31,7 @@ let b;
 let operator;
 let decimal = false;
 let firstNumber = true;
+let newNumber = true;
 const display = document.querySelector('.display');
 
 // writes content to the display
@@ -44,8 +45,14 @@ let displayContent = "";
 // add event listeners for each of the digit buttons
 digits.forEach(digit => {
   digit.addEventListener('click', () =>  {
-    displayContent += digit.id;
-    writeDisplay(displayContent);
+    if (newNumber) {
+      newNumber = false;
+      displayContent = digit.id;
+      writeDisplay(displayContent);
+    } else {
+      displayContent += digit.id;
+      writeDisplay(displayContent);
+    }
   })
 })
 
@@ -65,19 +72,29 @@ const operators = document.querySelectorAll('.operator');
 // add event listeners for the mathematical operators.
 operators.forEach(element => {
   element.addEventListener('click', () => {
-    if (firstNumber) {
-      firstNumber = false;
-      decimal = false;
-      a = displayContent;
-      operator = element.id;
-      displayContent = '';
-      writeDisplay(displayContent);
+    if (displayContent) {
+      if (firstNumber) {
+        firstNumber = false;
+        decimal = false;
+        a = displayContent;
+        operator = element.id;
+        newNumber = true;
+      } else {
+        b = displayContent;
+        displayContent = operate(a, b, operator);
+        operator = element.id;
+        a = displayContent;
+        b = '';
+        writeDisplay(displayContent);
+        newNumber = true;
+      }
     }
   })
 })
 
 const equals = document.getElementById('=');
 
+// add equals button functionality
 equals.addEventListener('click', () => {
   if (a && operator) {
     b = displayContent;
@@ -86,16 +103,19 @@ equals.addEventListener('click', () => {
     b = '';
     operator = '';
     writeDisplay(displayContent);
+    newNumber = true;
   }
 })
 
 const clear = document.getElementById('clear');
 
+// add clear button functionality
 clear.addEventListener('click', () => {
   displayContent = '';
   a = '';
   b = '';
   operator = '';
   firstNumber = true;
+  newNumber = true;
   writeDisplay(displayContent);
 })
