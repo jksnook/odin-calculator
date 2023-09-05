@@ -29,6 +29,7 @@ function operate(a, b, operator) {
 let a;
 let b;
 let operator;
+let displayContent = '0';
 let decimal = false;
 let firstNumber = true;
 let newNumber = true;
@@ -39,8 +40,34 @@ function writeDisplay(content) {
   display.textContent = content;
 }
 
+// adds content to display if max length is not exceeded
+function addDisplayContent(content) {
+  if (displayContent.length >= 10) return;
+  displayContent += content;
+  writeDisplay(displayContent);
+}
+
+// round string number to 10 digits and return new string number
+function roundResult(result) {
+  const wholeDigits = String(Math.round(Number(result))).length
+  const tenPower = (10 ** (10 - wholeDigits));
+  result = String(Math.round(Number(result) * tenPower) / tenPower);
+  if (result.length > 10) return "Overflow";
+  return result;
+}
+
+function evaluate() {
+  if (a && operator && !newNumber) {
+    b = displayContent;
+    displayContent = operate(a, b, operator);
+    a = displayContent;
+    b = '';
+    operator = '';
+    writeDisplay(roundResult(displayContent));
+    newNumber = true;
+  }
+}
 const digits = document.querySelectorAll('.digit');
-let displayContent = "";
 
 // add event listeners for each of the digit buttons
 digits.forEach(digit => {
@@ -50,8 +77,7 @@ digits.forEach(digit => {
       displayContent = digit.id;
       writeDisplay(displayContent);
     } else {
-      displayContent += digit.id;
-      writeDisplay(displayContent);
+      addDisplayContent(digit.id)
     }
   })
 })
@@ -60,10 +86,17 @@ const point = document.getElementById('.');
 
 // add event listener for decimal point
 point.addEventListener('click', () => {
-  if (decimal === false) {
+  if (newNumber) {
+    newNumber = false;
     decimal = true;
-    displayContent += '.';
+    displayContent = '0.'
     writeDisplay(displayContent);
+  } else {
+    if (decimal === false && displayContent.length < 10) {
+      decimal = true;
+      displayContent += '.';
+      writeDisplay(displayContent);
+    }
   }
 })
 
@@ -72,22 +105,16 @@ const operators = document.querySelectorAll('.operator');
 // add event listeners for the mathematical operators.
 operators.forEach(element => {
   element.addEventListener('click', () => {
-    if (displayContent) {
-      if (firstNumber) {
-        firstNumber = false;
-        decimal = false;
-        a = displayContent;
-        operator = element.id;
-        newNumber = true;
-      } else {
-        b = displayContent;
-        displayContent = operate(a, b, operator);
-        operator = element.id;
-        a = displayContent;
-        b = '';
-        writeDisplay(displayContent);
-        newNumber = true;
-      }
+    if (firstNumber) {
+      firstNumber = false;
+      decimal = false;
+      a = displayContent;
+      operator = element.id;
+      newNumber = true;
+    } else {
+      evaluate()
+      operator = element.id;
+      a = displayContent;
     }
   })
 })
@@ -95,27 +122,18 @@ operators.forEach(element => {
 const equals = document.getElementById('=');
 
 // add equals button functionality
-equals.addEventListener('click', () => {
-  if (a && operator) {
-    b = displayContent;
-    displayContent = operate(a, b, operator);
-    a = displayContent;
-    b = '';
-    operator = '';
-    writeDisplay(displayContent);
-    newNumber = true;
-  }
-})
+equals.addEventListener('click', evaluate)
 
 const clear = document.getElementById('clear');
 
 // add clear button functionality
 clear.addEventListener('click', () => {
-  displayContent = '';
+  displayContent = '0';
   a = '';
   b = '';
   operator = '';
   firstNumber = true;
   newNumber = true;
+  decimal = false;
   writeDisplay(displayContent);
 })
