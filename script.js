@@ -59,12 +59,18 @@ function roundResult(result) {
 function evaluate() {
   if (a && operator && !newNumber) {
     b = displayContent;
-    displayContent = operate(a, b, operator);
-    a = displayContent;
+    if (operator === 'divide' && Number(b) === 0) {
+      displayContent = 'Stop it!';
+      writeDisplay(displayContent);
+      firstNumber = true;
+    } else {
+      displayContent = operate(a, b, operator);
+      writeDisplay(roundResult(displayContent));
+    }
+    newNumber = true;
+    a = '';
     b = '';
     operator = '';
-    writeDisplay(roundResult(displayContent));
-    newNumber = true;
   }
 }
 const digits = document.querySelectorAll('.digit');
