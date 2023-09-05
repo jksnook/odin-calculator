@@ -57,6 +57,10 @@ button {
   font-size: 60px;
 }
 
+button:active {
+  background-color: #3a3a3a;
+}
+
 #digit0 {
   width: 184px;
 }

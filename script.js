@@ -65,7 +65,6 @@ function evaluate() {
     operator = '';
     writeDisplay(roundResult(displayContent));
     newNumber = true;
-    firstNumber = true;
   }
 }
 const digits = document.querySelectorAll('.digit');
@@ -123,7 +122,10 @@ operators.forEach(element => {
 const equals = document.getElementById('equals');
 
 // add equals button functionality
-equals.addEventListener('click', evaluate)
+equals.addEventListener('click', () => {
+  evaluate()
+  firstNumber = true;
+})
 
 const clear = document.getElementById('clear');
 
