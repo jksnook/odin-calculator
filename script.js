@@ -20,10 +20,10 @@ function divide(a, b) {
 
 // takes a, b, operator as strings, returns operator(a, b)
 function operate(a, b, operator) {
-  if (operator === '+') return add(Number(a), Number(b));
-  if (operator === '-') return subtract(Number(a), Number(b));
-  if (operator === '*') return multiply(Number(a), Number(b));
-  if (operator === '/') return divide(Number(a), Number(b));
+  if (operator === 'add') return add(Number(a), Number(b));
+  if (operator === 'subtract') return subtract(Number(a), Number(b));
+  if (operator === 'multiply') return multiply(Number(a), Number(b));
+  if (operator === 'divide') return divide(Number(a), Number(b));
 }
 
 let a;
@@ -65,6 +65,7 @@ function evaluate() {
     operator = '';
     writeDisplay(roundResult(displayContent));
     newNumber = true;
+    firstNumber = true;
   }
 }
 const digits = document.querySelectorAll('.digit');
@@ -119,7 +120,7 @@ operators.forEach(element => {
   })
 })
 
-const equals = document.getElementById('=');
+const equals = document.getElementById('equals');
 
 // add equals button functionality
 equals.addEventListener('click', evaluate)
